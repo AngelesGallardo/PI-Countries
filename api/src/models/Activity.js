@@ -4,13 +4,13 @@ module.exports = (sequelize) => {
     
     sequelize.define('activity', {
       
-      nombre: {
+      name: {
         type: DataTypes.STRING(20),
         allowNull: false,
-        unique: true,
+        unique: true
       },
 
-      dificultad: {
+      difficulty: {
         type: DataTypes.INTEGER,
         allowNull: true,
         validate: {
@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
         }
       },
 
-      duracion: {
+      duration: {
         type: DataTypes.INTEGER,
         allowNull: true,
         validate: {
@@ -29,12 +29,12 @@ module.exports = (sequelize) => {
             isInt: true, 
         },
         get() {        
-            const duracionValue = this.getDataValue('duracion');
+            const duracionValue = this.getDataValue('duration');
             return duracionValue ? `${duracionValue} minutos` : null
             },
       },
 
-      temporada: {
+      season: {
         type: DataTypes.ENUM('verano', 'otoño', 'invierno', 'primavera'),        
         allowNull: true,    
       }, 

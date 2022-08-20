@@ -1,39 +1,70 @@
- const axios = require('axios');
-const { Country } = require('../db.js');
+const axios = require('axios');
+const { Country, Activity } = require('../db.js');
 
 
 const getAllCountries = async () => {
     try {
+        const countriesDB = await Country.findAll()
+        if(!countriesDB.length) {
         const apiInfo = (await axios('https://restcountries.com/v3/all')).data.map(c => ({
             id: c.cca3,
             name: c.name.common,
             image: c.flags[1],
-            continents: c.continents?.toString(),
-            capital: c.capital?.toString(),
+            continents: c.continents.toString(),
+            capital: c.capital? c.capital.toString() : 'dato desconocido',
             subregion: c.subregion,
             area: c.area,
             population: c.population,
         }))
-        const paisesDb = await apiInfo.filter(c => 
-            c.id != null 
-            && c.name != null 
-            && c.image != null 
-            && c.continents != null
-            && c.capital != null )
-
-        await Country.bulkCreate(paisesDb)
-        console.log('paises creados', apiInfo)
-
+        
+        await Country.bulkCreate(apiInfo)
+        console.log('paises guardados en DB')
+    }
     } catch (error) {
         console.log(error)
     }
 }
 
-const listCountries = async (req, res, next) => {
-    try {
-        const countriesFromDb = await Country.findAll()
-        res.json(countriesFromDb)
+
+
+const agregaActivity = async () => {
+
+    return await Country.findAll({
+        include:{
+            model: Activity,
+            attributes: ['name', 'difficulty', 'duration', 'season'],
+            through:{
+                attributes:[],
+            }
+        }
+    })
+}
+
+
+
+const getCountries = async (req, res, next) => {
+
+    const { name } = req.query
+    const { id } = req.params
+
+    try {        
+        const countryMasActividad = await agregaActivity()
+
+        if(name) {
+            const countryName = countryMasActividad.filter(c => c.name.toLowerCase().includes(name.toLowerCase()))
+            
+            countryName.length? res.json(countryName) : res.status(404).send({ msg: 'El nombre ingresado no corresponde a ningun pais'})
+
+        }else if(id) {
+            const idEncontrado = countryMasActividad.filter(c => c.id.toUpperCase() === id.toUpperCase())
+
+            idEncontrado.length? res.json(idEncontrado) : res.status(404).send({ msg: 'El id ingresado no corresponde a ningun pais'}) 
         
+        }else {
+            const countryRutaPcipal = countryMasActividad.map(c => {return { name: c.name, image: c.image, continents: c.continents}})
+            res.json(countryRutaPcipal)
+        }
+
     } catch (error) {
         next(error)
     }
@@ -41,8 +72,9 @@ const listCountries = async (req, res, next) => {
 
 
 
+
  module.exports= {
      getAllCountries,
-     listCountries,
+     getCountries,
  }
-    
+
