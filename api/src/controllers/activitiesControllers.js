@@ -10,15 +10,15 @@ const newActivity = async (req, res, next) => {
 
         const [activityDb, created] = await Activity.findOrCreate({where:{name},defaults:{difficulty, duration, season}})
 
-        const relCountry = await Country.findAll({ where: {name: {[Op.iLike]:`%${country}%`}} })
-        
-        activityDb.addCountry(relCountry)
+        for (let c of country) {
+            const relCountry = await Country.findOne({ where: {name: {[Op.iLike]: c}} })
+            activityDb.addCountry(relCountry)
+        }
 
         created? 
         res.send({msg: 'La actividad fue creada con exito'}) 
         : res.send({msg: 'La actividad ya existia y fue relacionada al pais indicado'})
-    
-        
+            
         
     } catch (error) {
         next(error)
