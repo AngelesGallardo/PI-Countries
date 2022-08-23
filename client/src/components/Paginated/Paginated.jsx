@@ -1,28 +1,31 @@
 import React from "react";
 
-
-function AllPaginated ({countriesPerPage, allCountries, paginated}){
+                                     
+function AllPaginated ({ currentPage,allCountries, paginated, setCurrentPage }){
+   
     const pageNumbers= []
+    const maxPages = Math.ceil(allCountries/10)
 
-    for (let i = 1; i <= Math.ceil(allCountries/countriesPerPage) ; i++) {
+    for (let i = 1; i <= maxPages ; i++) {
         pageNumbers.push(i)        
     }
 
     return(
-        <nav>
+        <div>
             <ul>
-                {pageNumbers?.map(number=>(
-                    <li>
-                        <a onClick= {()=>paginated(number)}>{number}</a>
-                    </li>
-                    )
-                )}
+            {/* <button onClick = {() => paginated(currentPage === 1? currentPage : currentPage - 1)}>{'<'}</button> */}
+
+                {pageNumbers?.map(currentPage=>(                
+                    <button key={currentPage} onClick= {()=>paginated(currentPage)}>{currentPage}</button>
+                    ))}
+
+                {/* <button key={currentPage}onClick={() => paginated(currentPage === maxPages? currentPage : currentPage + 1)}>{'>'}</button> */}
             </ul>
-        </nav>
+        </div>)
 
 
 
-    )
+    
 
 
 

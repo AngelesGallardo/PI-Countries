@@ -1,9 +1,10 @@
-import { GET_ALL_COUNTRIES, GET_DETAIL_BY_ID, GET_DETAIL_BY_NAME, CREATE_ACTIVITY } from '../actions/index.js'
+import { GET_ALL_COUNTRIES, GET_DETAIL_BY_ID, GET_DETAIL_BY_NAME, CREATE_ACTIVITY, GET_ACTIVITIES,FILTER_BY_CONTINENTS, FILTER_BY_ACTIVITIES, ORDER_BY_NAME, ORDER_BY_POPULATION, GET_COUNTRIES_BY_NAME } from '../actions/index.js'
 
 const initialState = {
     countries: [],
+    allCountries: [],
     detail: [],
-    activities : []
+    activities: [],
   };
   
   const reducer = (state = initialState, action) => {
@@ -12,23 +13,79 @@ const initialState = {
         case GET_ALL_COUNTRIES:
             return {
                 ...state,
-                countries: action.payload
-            }        
-        case GET_DETAIL_BY_ID:
+                countries: action.payload,
+                allCountries: action.payload
+            }       
+        case GET_COUNTRIES_BY_NAME:
             return {
                 ...state,
-                detail: action.payload
-            }
-        case GET_DETAIL_BY_NAME:
-            return {
-                ...state,
-                detail: action.payload
-            }    
+                 countries: action.payload
+            }      
+        // case GET_DETAIL_BY_ID:
+        //     return {
+        //         ...state,
+        //         detail: action.payload
+        //     }
+        // case GET_DETAIL_BY_NAME:
+        //     return {
+        //         ...state,
+        //         detail: action.payload
+        //     }   
+        
         case CREATE_ACTIVITY:
             return {
                 ...state,
-                activities: [...state.activities, action.payload]
             } 
+        case GET_ACTIVITIES:
+            return {
+                ...state,
+                activities: action.payload
+            }     
+        case ORDER_BY_NAME:           
+            let sortName = action.payload === 'a-z'? 
+                state.countries.sort((a,b)=>{
+                    if(a.name > b.name) return 1;
+                    if(a.name < b.name) return -1;
+                    return 0;
+                }) 
+                : state.countries.sort((a,b)=>{
+                if(a.name > b.name) return -1;
+                if(a.name < b.name) return 1;
+                return 0;
+                }) 
+             
+            return{
+                ...state,
+                countries: sortName
+            }
+        case ORDER_BY_POPULATION:
+                let sortPopulation = action.payload === 'asc'?
+                state.countries.sort((a,b)=>{
+                    return a.population - b.population;
+                })
+                : state.countries.sort((a,b)=>{
+                    return b.population - a.population;
+                })
+            return {
+                ...state,
+                countries: sortPopulation                
+            }
+        case FILTER_BY_CONTINENTS:
+            const allCountries = state.allCountries
+            const filterByContinents = allCountries.filter(c => c.continents === action.payload)
+            return {
+                ...state,
+                countries: filterByContinents
+            }
+    ////////////////aca quede en filter by activities
+        case FILTER_BY_ACTIVITIES:
+            const countries = state.allCountries
+            const filterByActivities =  action.payload !== 'all' ? countries.filter(c => c.activities.find(a => (a.name).toLowerCase() === (action.payload).toLowerCase())) : countries
+            return {
+                ...state,
+                countries: filterByActivities
+            }       
+        
         default: 
             return {
                 ...state
