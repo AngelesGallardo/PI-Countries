@@ -26,7 +26,19 @@ const newActivity = async (req, res, next) => {
 }
 
 
+const getAllActivities = async (req, res, next) =>{
+       
+    try { 
+        let activities = await Activity.findAll() 
+        activities.length? res.json(activities) : res.status(404).json({msg: 'No existen actividades aun'})       
+
+    } catch (error) {
+        next(error)
+    }
+}
+
 module.exports = {
-    newActivity
+    newActivity,
+    getAllActivities
 }
 

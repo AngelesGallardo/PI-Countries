@@ -8,7 +8,7 @@ const getAllCountries = async () => {
         if(!countriesDB.length) {
         const apiInfo = (await axios('https://restcountries.com/v3/all')).data.map(c => ({
             id: c.cca3,
-            name: c.name.common,
+            name: c.name.common.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
             image: c.flags[1],
             continents: c.continents.toString(),
             capital: c.capital? c.capital.toString() : 'dato desconocido',
@@ -60,8 +60,8 @@ const getCountries = async (req, res, next) => {
 
             idEncontrado.length? res.json(idEncontrado) : res.status(404).send({ msg: 'El id ingresado no corresponde a ningun pais'}) 
         
-        }else {
-            const countryRutaPcipal = countryMasActividad.map(c => {return { name: c.name, image: c.image, continents: c.continents}})
+        }else {            
+            const countryRutaPcipal = (await Country.findAll()).map(c => {return { name: c.name, image: c.image, continents: c.continents, population: c.population}})
             res.json(countryRutaPcipal)
         }
 

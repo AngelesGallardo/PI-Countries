@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
 
       difficulty: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         validate: {
             isNumeric: true,
             isInt: true,
@@ -23,20 +23,16 @@ module.exports = (sequelize) => {
 
       duration: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
         validate: {
             isNumeric: true,
             isInt: true, 
-        },
-        get() {        
-            const duracionValue = this.getDataValue('duration');
-            return duracionValue ? `${duracionValue} minutos` : null
-            },
+        }
       },
 
       season: {
-        type: DataTypes.ENUM('verano', 'otoño', 'invierno', 'primavera'),        
-        allowNull: true,    
+        type: DataTypes.ENUM('Summer', 'Autumn', 'Winter', 'Spring'),        
+        allowNull: false,    
       }, 
 
     }, {

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { newActivity } = require('../controllers/activitiesControllers');
+const { newActivity, getAllActivities } = require('../controllers/activitiesControllers');
 
 
  //Importar todos los routers;
@@ -12,6 +12,7 @@ const { newActivity } = require('../controllers/activitiesControllers');
 
 
 router.post('/', newActivity)
+router.get('/', getAllActivities)
 
 
 module.exports = router
