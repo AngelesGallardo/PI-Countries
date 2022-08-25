@@ -6,14 +6,15 @@ const Op = sequelize.Op;
 
 const newActivity = async (req, res, next) => {
     try {
-        const { name, difficulty, duration, season, country } = req.body
+        const { name, difficulty, duration, season, countries } = req.body
 
         const [activityDb, created] = await Activity.findOrCreate({where:{name},defaults:{difficulty, duration, season}})
 
-        for (let c of country) {
-            const relCountry = await Country.findOne({ where: {name: {[Op.iLike]: c}} })
-            activityDb.addCountry(relCountry)
+        for (let c of countries) {
+            const relCountries = await Country.findOne({ where: {name: {[Op.iLike]: c}} })
+            activityDb.addCountry(relCountries)
         }
+       
 
         created? 
         res.send({msg: 'La actividad fue creada con exito'}) 
@@ -30,7 +31,7 @@ const getAllActivities = async (req, res, next) =>{
        
     try { 
         let activities = await Activity.findAll() 
-        activities.length? res.json(activities) : res.status(404).json({msg: 'No existen actividades aun'})       
+        activities.length? res.json(activities) : res.json([])       
 
     } catch (error) {
         next(error)

@@ -60,9 +60,9 @@ const getCountries = async (req, res, next) => {
 
             idEncontrado.length? res.json(idEncontrado) : res.status(404).send({ msg: 'El id ingresado no corresponde a ningun pais'}) 
         
-        }else {            
-            const countryRutaPcipal = (await Country.findAll()).map(c => {return { name: c.name, image: c.image, continents: c.continents, population: c.population}})
-            res.json(countryRutaPcipal)
+        }else {  
+                 
+           res.json(countryMasActividad)
         }
 
     } catch (error) {
