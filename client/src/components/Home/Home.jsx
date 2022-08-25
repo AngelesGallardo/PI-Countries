@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterByActivities, filterByContinents, getAllCountries, orderByName, orderByPopulation } from '../../redux/actions/index.js';
+import { filterByActivities, filterByContinents, getActivities, getAllCountries, orderByName, orderByPopulation } from '../../redux/actions/index.js';
 import Card from '../Card/Card.jsx';
 import { Link } from 'react-router-dom';
 import Paginated from '../Paginated/Paginated.jsx'
@@ -30,6 +30,11 @@ function Home() {
     useEffect(()=>{
       dispatch(getAllCountries())
    },[dispatch])
+
+   useEffect(()=>{
+      dispatch(getActivities())
+   },[dispatch])
+
 
    const onHandleClick = (e) =>{
       e.preventDefault();
@@ -90,14 +95,14 @@ function Home() {
 
             <select onChange = {handleFilterByActivities}>  
             <option>Activities</option>
-            <option value = 'all'>All</option>               
-               {allActivities?.map(a => {
-                     return <option value = {a.name}>{a.name}</option>
+            <option value='all'>All</option>             
+               {allActivities && allActivities.map((c) => {
+                     return <option key={c.id} value={c.name}>{c.name}</option>
                 })}
             </select>
-   
+            <p>Sort</p>
             <select onChange={handleOrderByName}>
-               <option >Alphabetic</option>
+               <option hidden >Alphabetic</option>
                <option value= 'a-z'>A-Z</option>
                <option value= 'z-a'>Z-A</option>
             </select>

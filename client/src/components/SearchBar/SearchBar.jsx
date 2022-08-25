@@ -16,7 +16,6 @@ const SearchBar = () => {
     const onHandleSubmit = (e) => {
         e.preventDefault();
         dispatch(getCountriesByName(name))
-
     }
 
     return (

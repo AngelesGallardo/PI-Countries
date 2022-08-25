@@ -1,10 +1,11 @@
-import { GET_ALL_COUNTRIES, GET_DETAIL_BY_ID, GET_DETAIL_BY_NAME, CREATE_ACTIVITY, GET_ACTIVITIES,FILTER_BY_CONTINENTS, FILTER_BY_ACTIVITIES, ORDER_BY_NAME, ORDER_BY_POPULATION, GET_COUNTRIES_BY_NAME } from '../actions/index.js'
+import { GET_ALL_COUNTRIES, GET_ACTIVITIES, GET_DETAIL_BY_ID, CREATE_ACTIVITY,FILTER_BY_CONTINENTS, FILTER_BY_ACTIVITIES, ORDER_BY_NAME, ORDER_BY_POPULATION, GET_COUNTRIES_BY_NAME, CLEAN_COUNTRY } from '../actions/index.js'
 
 const initialState = {
     countries: [],
     allCountries: [],
     detail: [],
     activities: [],
+    allActivities: []
   };
   
   const reducer = (state = initialState, action) => {
@@ -21,16 +22,16 @@ const initialState = {
                 ...state,
                  countries: action.payload
             }      
-        // case GET_DETAIL_BY_ID:
-        //     return {
-        //         ...state,
-        //         detail: action.payload
-        //     }
-        // case GET_DETAIL_BY_NAME:
-        //     return {
-        //         ...state,
-        //         detail: action.payload
-        //     }   
+        case GET_DETAIL_BY_ID:
+            return {
+                ...state,
+                detail: action.payload
+            }
+        case CLEAN_COUNTRY:
+            return {
+                ...state,
+                detail: action.payload
+            } 
         
         case CREATE_ACTIVITY:
             return {
@@ -39,7 +40,8 @@ const initialState = {
         case GET_ACTIVITIES:
             return {
                 ...state,
-                activities: action.payload
+                activities: action.payload,
+                allActivities: action.payload
             }     
         case ORDER_BY_NAME:           
             let sortName = action.payload === 'a-z'? 
@@ -52,8 +54,7 @@ const initialState = {
                 if(a.name > b.name) return -1;
                 if(a.name < b.name) return 1;
                 return 0;
-                }) 
-             
+                })             
             return{
                 ...state,
                 countries: sortName
@@ -79,11 +80,15 @@ const initialState = {
             }
     ////////////////aca quede en filter by activities
         case FILTER_BY_ACTIVITIES:
-            const countries = state.allCountries
-            const filterByActivities =  action.payload !== 'all' ? countries.filter(c => c.activities.find(a => (a.name).toLowerCase() === (action.payload).toLowerCase())) : countries
+            const countries = state.allCountries /// LO TENGO QUE HACER DESDE EL DETALLE PORQUE NO TENGO ACTIVIDAD EN COUNTRIES
+            // const activities = state.activities
+            // const filterByActivities = action.payload === 'all'? countries : countries.filter(c => c.activities.find(a => (a.name).toLowerCase() === (action.payload).toLowerCase())) 
+            
+             const filterByActivities = action.payload === 'all'? countries : countries.filter(c => c.activities?.find(a => (a.name) === (action.payload)))
+            //  console.log('acaaaaaaaaa', filterByActivities)
             return {
                 ...state,
-                countries: filterByActivities
+                 countries: filterByActivities
             }       
         
         default: 
@@ -92,4 +97,4 @@ const initialState = {
             }
     }}
 
-    export default reducer;
+    export default reducer
