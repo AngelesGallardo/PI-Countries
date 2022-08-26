@@ -78,6 +78,8 @@ function Home() {
          <SearchBar/>
 
          <Link to='/activities'><button>Activity Create</button></Link>
+
+         <button onClick={onHandleClick}>All Countries</button>
          
          <div>  
             <fieldset>                 
@@ -99,7 +101,6 @@ function Home() {
                      return <option key={c.id} value={c.name}>{c.name}</option>
                 })}
             </select>
-            <button onClick={onHandleClick}>Clear Filters</button>
             </fieldset>
 
             <fieldset>
@@ -114,7 +115,7 @@ function Home() {
                <option value= 'asc'>Ascending</option> 
                <option value= 'desc'>Descending</option>
             </select>
-            <button onClick={onHandleClick}>Clear Sorts</button>
+           
             </fieldset>
          </div>
 

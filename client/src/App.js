@@ -5,9 +5,7 @@ import Home from './components/Home/Home.jsx'
 import CreateActivity from './components/CreateActivity/CreateActivity.jsx';
 import Detail from './components/Detail/Detail.jsx'
 import PageNotFound from './components/PageNotFound/PageNotFound';
-
-
-
+import CountryNotFound from './components/CountryNotFound/CountryNotFound';
 
 
 function App() {
@@ -25,6 +23,9 @@ function App() {
           </Route>
           <Route path = '/detail/:id'>
             <Detail/>
+          </Route>
+          <Route path = '/notfound'>
+            <CountryNotFound/>
           </Route>
           <Route path='*'>
             <PageNotFound/>

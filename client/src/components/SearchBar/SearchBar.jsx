@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCountriesByName } from "../../redux/actions";
+import { useHistory } from "react-router-dom";
 
 const SearchBar = () => {
 
+    const countries = useSelector(state => state.allCountries)
     const dispatch = useDispatch()
+    const history = useHistory()
     const [name, setName] = useState('')
 
     const onHandleChange = (e) => {
@@ -15,12 +18,13 @@ const SearchBar = () => {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
-        dispatch(getCountriesByName(name))
+        if(countries.find(c =>c.name === name)) dispatch(getCountriesByName(name))
+        else history.push('/notfound')
     }
 
     return (
         <div>
-            <input type= 'search' name='search' placeholder= "Search in countries.." onChange= {onHandleChange}/>
+            <input type= 'search' name='search' placeholder= "search countries by name" onChange= {onHandleChange}/>
             <button type= 'submit' onClick= {onHandleSubmit}>Search</button>
         </div>
     )

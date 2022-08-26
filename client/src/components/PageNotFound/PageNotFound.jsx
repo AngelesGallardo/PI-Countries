@@ -6,7 +6,7 @@ const PageNotFound = ()=> {
     return (
         <div>
             <h1>Page Not Found</h1>
-            <h3>{'<<'} Ups! You got lost?.. Go back to the main page {'>>'}</h3><Link to='/home'><button>Go back</button></Link>            
+            <h3>{'<<'} Oops! You got lost?.. Go back to the main page {'>>'}</h3><Link to='/home'><button>Go back</button></Link>            
         </div>
 
     )

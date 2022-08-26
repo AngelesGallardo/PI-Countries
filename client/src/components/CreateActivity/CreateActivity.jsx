@@ -15,7 +15,7 @@ const validate = (input) => {
     
     if(!input.duration) errors.duration = 'Duration is required'
     if(input.duration < 30 || input.duration > 300 ) errors.duration = 'Should last at least 30 minutes and no more than 300 minutes'
-    if(/^\d+$^\d+$/ .test(input.duration)) errors.duration = 'The duration must be in integers'
+    if(/^\d+$^\d+$/.test(input.duration)) errors.duration = 'The duration must be in integers'
     
     if(!input.season) errors.season = 'Choose a season'
     
@@ -43,7 +43,7 @@ const CreateActivity = () =>{
     
     useEffect(()=>{
         dispatch(getAllCountries())
-    },[]) 
+    },[dispatch]) 
 
     
     const onHandleChange = (e) => {
@@ -106,15 +106,6 @@ const CreateActivity = () =>{
             ...input,
             countries: input.countries.filter(c => c !== e.target.value)
         })
-    }
-
-    const onHandleErrors = (e) => {
-        e.preventDefault();
-        setErrors(validate({
-            ...input,
-            [e.target.name]: e.target.value,
-            countries: [...input.countries, e.target.value]
-        }))
     }
 
     const onHandleSubmit = (e) => {
