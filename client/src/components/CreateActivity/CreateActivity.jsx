@@ -2,142 +2,200 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from "react-router-dom";
-import { postActivity, getActivities } from "../../redux/actions";
+import { postActivity, getActivities, getAllCountries } from "../../redux/actions";
 
-// const validate = () => {
-//     let errors = {};
-//     if(!activity.name) {errors.name = 'Name is required'}
-//     else if(!activity.difficulty) {errors.difficulty = 'Difficulty is required'}
-//     else if(!activity.duration) {errors.duration = 'Duration is required'}
-//     else if(!activity.season) {errors.season = 'Season is required'}
-//     else if(!activity.countries) {errors.countries = 'Countries is required'}
-// }
+
+const validate = (input) => {
+    let errors = {};
+    if(!input.name) errors.name = 'Name is required'
+    if(input.name.length < 3 || input.name.length > 25) errors.name = 'Name must contain between 3 and 50 characters'
+    if(!/^[a-zA-Z ]*$/.test(input.name)) errors.name = 'Invalid name: must only contain letters'
+    if(input.name !== input.name.toLowerCase()) errors.name = 'Invalid name: Invalid name: must only contain lowercase letters'
+    if(!input.difficulty) errors.difficulty = 'Choose a difficulty'
+    
+    if(!input.duration) errors.duration = 'Duration is required'
+    if(input.duration < 30 || input.duration > 300 ) errors.duration = 'Should last at least 30 minutes and no more than 300 minutes'
+    if(/^\d+$^\d+$/ .test(input.duration)) errors.duration = 'The duration must be in integers'
+    
+    if(!input.season) errors.season = 'Choose a season'
+    
+    if(!input.countries.length) errors.countries = 'Select one countrie at least'
+
+    return errors;
+}
 
 
 const CreateActivity = () =>{
     
     const dispatch = useDispatch();
+    const countries = useSelector(state => state.allCountries) 
     const history = useHistory();
-    const countries = useSelector(state => state.allCountries)
-    const [errors, setErrors] = useState('')
-
-    const [activity, setActivity] = useState({
+    
+    const [input, setInput] = useState({
         name: '',
         difficulty: '',
         duration: '',
         season: '',
         countries: []
     })
+    
+    const [errors, setErrors] = useState({})
+    
+    useEffect(()=>{
+        dispatch(getAllCountries())
+    },[]) 
 
     
     const onHandleChange = (e) => {
-        setActivity({
-            ...activity,
+        e.preventDefault();        
+        setInput({
+            ...input,
             [e.target.name] : e.target.value
-        })
-        // setErrors(validate({
-        //     ...activity,
-        //     [e.target.name] : e.target.value
-        // }))
+        })        
+        setErrors(validate({
+            ...input,
+            [e.target.name] : e.target.value
+        }))
     }
 
-    const onHandleCheck = (e) => {
+    const onHandleDifficulty = (e) => {
         e.preventDefault();
-        if(e.target.checked)
-        setActivity({
-            ...activity,
+        if(e.target.checked){
+            setInput({
+                ...input,
+                difficulty : e.target.value
+            })
+        }
+        setErrors(validate({
+            ...input,
             difficulty : e.target.value
-        })
+        }))
     }
+       
 
     const onHandleSeason = (e) => {
         e.preventDefault();
-        if(e.target.checked)
-        setActivity({
-            ...activity,
+        if(e.target.checked){
+            setInput({
+                ...input,
+                season : e.target.value
+            })
+        }
+        setErrors(validate({
+            ...input,
             season : e.target.value
-        })
-    }
+        }))        
+    }        
+    
 
-    const onHandleSelect = (e) => {
+    const onHandleCountries = (e) => {
         e.preventDefault();
-        setActivity({
-            ...activity,
-            countries : [...activity.countries, e.target.value]
-        })
+        setInput({
+            ...input,
+            countries : input.countries.includes(e.target.value)? input.countries : [...input.countries, e.target.value]
+        })       
+        setErrors(validate({
+            ...input,
+            countries : [...input.countries, e.target.value]
+        }))        
     }
 
     const onHandleDelete = (e) => {
         e.preventDefault();
-        setActivity({
-            ...activity,
-            countries: activity.countries.filter(c => c !== e.target.value)
+        setInput({
+            ...input,
+            countries: input.countries.filter(c => c !== e.target.value)
         })
+    }
+
+    const onHandleErrors = (e) => {
+        e.preventDefault();
+        setErrors(validate({
+            ...input,
+            [e.target.name]: e.target.value,
+            countries: [...input.countries, e.target.value]
+        }))
     }
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
-        dispatch(postActivity(activity))
-        setActivity({
+        setErrors(validate({
+            ...input,
+            [e.target.name] : e.target.value
+          }))
+        dispatch(postActivity(input))
+        setInput({
             name: '',
             difficulty: '',
             duration: '',
             season: '',
             countries: []
         })
-        alert('activity created successfully')
-        history.push('/home')
-
+        alert('Activity created successfully')
+        history.push('/home')        
     }
 
     useEffect(()=>{
         dispatch(getActivities())
-    },[dispatch])
-    
+    },[dispatch]) 
 
     return (
         <>
-         <Link to='/home'><button>{'<<'}</button></Link>
+         <Link to='/home'><button>Go Back</button></Link>
         
-        <form>
-            <div>
-                <label>Activity </label>
-                <input type='text' name='name' value={activity.name} onChange={onHandleChange}/>
-                {errors.name && (
-                    <p>{errors.name}</p>
-                )}
-            </div>
-            <div> 
-                <label>Difficulty </label>          
-                <label><input type='checkbox' name='1' value='1' onChange={onHandleCheck}/> 1</label>
-                <label><input type='checkbox' name='2' value='2' onChange={onHandleCheck}/> 2</label>
-                <label><input type='checkbox' name='3' value='3' onChange={onHandleCheck}/> 3</label>
-                <label><input type='checkbox' name='4' value='4' onChange={onHandleCheck}/> 4</label>
-                <label><input type='checkbox' name='5' value='5' onChange={onHandleCheck}/> 5</label>
-            </div> 
-            <div>
-                <label>Duration </label>
-                <label><input type='number' name='duration' value={activity.duration} onChange={onHandleChange}/> minutos</label>
-            </div>
-            <div>
-                <label>Season </label>
-                <label><input type='checkbox' name='Summer' value='Summer' onChange={onHandleSeason}/> Summer</label>
-                <label><input type='checkbox' name='Autumn' value='Autumn' onChange={onHandleSeason}/> Autumn</label>
-                <label><input type='checkbox' name='Winter' value='Winter' onChange={onHandleSeason}/> Winter</label>
-                <label><input type='checkbox' name='Spring' value='Winter' onChange={onHandleSeason}/> Spring</label>
-            </div>
-            <div>
-            <label>Countries </label>
-            <select onChange={onHandleSelect}>
-                {countries.map(c => 
-                    <option value= {c.name} >{c.name}</option>)}
+        <form onSubmit= {onHandleSubmit}>
+            <fieldset>
+                <legend>Activity Name</legend>
+                <input type='text' autoCapitalize="sentences" name='name' value={input.name} autoFocus onChange={onHandleChange}/>
+            {errors.name && (<p>{errors.name}</p>)}
+            </fieldset>
+           
+            <fieldset> 
+                <legend>Difficulty Level </legend>          
+                <label><input type='radio' id='onedif' name='difficulty' value='1' onChange={onHandleDifficulty}/> 1</label>
+                <label><input type='radio' id='twodif' name='difficulty' value='2' onChange={onHandleDifficulty}/> 2</label>
+                <label><input type='radio' id='threedif' name='difficulty' value='3' onChange={onHandleDifficulty}/> 3</label>
+                <label><input type='radio' id='fourdif' name='difficulty' value='4' onChange={onHandleDifficulty}/> 4</label>
+                <label><input type='radio' id='fivedif' name='difficulty' value='5' onChange={onHandleDifficulty}/> 5</label>
+                {errors.difficulty && (<p>{errors.difficulty}</p>)}
+            </fieldset>
+        
+            <fieldset>
+                <legend>Duration </legend>
+                <label><input type='number' name='duration' min='30' max= '300' step={30} value={input.duration} onChange={onHandleChange}/> minutos</label>
+                {errors.duration && (<p>{errors.duration}</p>)}
+            </fieldset>
+
+            <fieldset>
+                <legend>Season </legend>
+                <label><input type='radio' id='onesea'name='Summer' value='Summer' onChange={onHandleSeason}/> Summer</label>
+                <label><input type='radio' id='twosea' name='Autumn' value='Autumn' onChange={onHandleSeason}/> Autumn</label>
+                <label><input type='radio' id='threesea' name='Winter' value='Winter' onChange={onHandleSeason}/> Winter</label>
+                <label><input type='radio' id='foursea' name='Spring' value='Winter' onChange={onHandleSeason}/> Spring</label>
+                {errors.season && (<p>{errors.season}</p>)}
+            </fieldset>
+
+            <fieldset>
+            <legend>Countries </legend>
+            <select onChange={onHandleCountries}>
+                <option hidden selected>Select countries</option>
+                {countries?.sort((a,b)=>{
+                    if(a.name > b.name) return 1;
+                    if(a.name < b.name) return -1;
+                    return 0;
+                }).map(c => 
+                    <option key= {c.id} value= {c.name} >{c.name}</option>)}
             </select>
-            <ul>{activity.countries.map(c => 
-                <li>{c}<button value={c} onClick = {onHandleDelete}>x</button></li>)}
+            {errors.countries && (<p>{errors.countries}</p>)}
+            <ul>{input.countries.map(c => 
+                <li key={c}>{c}<button value={c} onClick = {onHandleDelete}>x</button></li>)}
             </ul>
+            </fieldset>
             
-            </div>
-            <button type='submit' onClick= {onHandleSubmit}>Activity Create</button>
+            {!input.name || !input.difficulty || !input.duration || !input.season || input.countries.length === 0 || Object.keys(errors).length ? 
+            (<button disabled type="submit">Create Activity</button>) 
+            : (<button type="submit">Create Activity</button>)}
+                        
         </form>     
         </>
     )

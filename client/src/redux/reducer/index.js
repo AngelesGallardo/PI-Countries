@@ -78,14 +78,9 @@ const initialState = {
                 ...state,
                 countries: filterByContinents
             }
-    ////////////////aca quede en filter by activities
         case FILTER_BY_ACTIVITIES:
-            const countries = state.allCountries /// LO TENGO QUE HACER DESDE EL DETALLE PORQUE NO TENGO ACTIVIDAD EN COUNTRIES
-            // const activities = state.activities
-            // const filterByActivities = action.payload === 'all'? countries : countries.filter(c => c.activities.find(a => (a.name).toLowerCase() === (action.payload).toLowerCase())) 
-            
-             const filterByActivities = action.payload === 'all'? countries : countries.filter(c => c.activities?.find(a => (a.name) === (action.payload)))
-            //  console.log('acaaaaaaaaa', filterByActivities)
+            const countries = state.allCountries            
+            const filterByActivities = action.payload === 'all'? countries : countries.filter(c => c.activities?.find(a => (a.name) === (action.payload)))           
             return {
                 ...state,
                  countries: filterByActivities

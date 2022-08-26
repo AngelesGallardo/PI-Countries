@@ -13,7 +13,7 @@ const CountryDetail= (props) => {
     useEffect(()=>{
         dispatch(getDetailById(id))
         return () => dispatch(cleanCountry())        
-    }, [dispatch])
+    }, [dispatch, id])
 
     return (
         <div>
@@ -33,10 +33,10 @@ const CountryDetail= (props) => {
                 <h3>Activities: {detail[0].activities.length>0? detail[0].activities.map(a=>(
                     <ul key={a.id}>
                         <li>{a.name.toUpperCase()}</li>
-                        <li>Difficulty: {a.difficulty}, Duration: {a.duration} minutes, Season: {a.season}.</li>
+                        <li>Difficulty Level: {a.difficulty} - Duration: {a.duration} minutes - Season: {a.season}</li>
                     </ul>)
                         
-                ) : <></>}</h3>
+                ) : <h5>No related activities</h5>}</h3>
 
             </div>: <p>...Loading</p>}
             

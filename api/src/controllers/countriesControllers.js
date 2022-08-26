@@ -61,8 +61,16 @@ const getCountries = async (req, res, next) => {
             idEncontrado.length? res.json(idEncontrado) : res.status(404).send({ msg: 'El id ingresado no corresponde a ningun pais'}) 
         
         }else {  
-                 
-           res.json(countryMasActividad)
+            const countriesPcipal =  countryMasActividad.filter(c => ({
+            id:c.id,
+            image: c.flags,
+            name: c.name,
+            continents: c.continents,                        
+            population: c.population,
+            activities: c.activities
+            }))  
+
+            res.json(countriesPcipal)
         }
 
     } catch (error) {

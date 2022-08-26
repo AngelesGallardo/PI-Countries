@@ -78,12 +78,12 @@ function Home() {
          <SearchBar/>
 
          <Link to='/activities'><button>Activity Create</button></Link>
-
-         <button onClick={onHandleClick}>Clear Filters</button>
          
-         <div>            
+         <div>  
+            <fieldset>                 
+            <legend>Filters</legend>        
             <select onChange = {handleFilterByContinents}>
-               <option>All Continents</option>
+               <option hidden selected>By Continents</option>
                <option value= 'North America'>North America</option>
                <option value= 'South America'>South America</option>
                <option value= 'Antarctica'>Antarctica</option>
@@ -91,27 +91,31 @@ function Home() {
                <option value= 'Asia'>Asia</option>
                <option value= 'Africa'>Africa</option>
                <option value= 'Oceania'>Oceania</option>
-            </select>
-
-            <select onChange = {handleFilterByActivities}>  
-            <option>Activities</option>
+            </select>            
+            <select onChange = {handleFilterByActivities}> 
+            <option hidden selected>By Activities</option> 
             <option value='all'>All</option>             
                {allActivities && allActivities.map((c) => {
                      return <option key={c.id} value={c.name}>{c.name}</option>
                 })}
             </select>
-            <p>Sort</p>
+            <button onClick={onHandleClick}>Clear Filters</button>
+            </fieldset>
+
+            <fieldset>
+               <legend>Sorts</legend>
             <select onChange={handleOrderByName}>
-               <option hidden >Alphabetic</option>
+               <option hidden selected>Alphabetically</option>
                <option value= 'a-z'>A-Z</option>
                <option value= 'z-a'>Z-A</option>
-            </select>
-
+            </select>            
             <select onChange={handleOrderByPopulation}>
-               <option >Population</option>
-               <option value= 'asc'>Ascending Order</option> 
-               <option value= 'desc'>Descending Order </option>
+               <option hidden selected>By Population</option>
+               <option value= 'asc'>Ascending</option> 
+               <option value= 'desc'>Descending</option>
             </select>
+            <button onClick={onHandleClick}>Clear Sorts</button>
+            </fieldset>
          </div>
 
 

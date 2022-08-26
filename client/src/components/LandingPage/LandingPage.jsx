@@ -6,9 +6,9 @@ function LandingPage() {
   return (
     
     <div>
-        <h1>Welcome to Countrie's Page</h1>
+        <h1>Welcome to Countries Page</h1>
         <Link to='/home'>
-            <button>Ingresar</button>
+            <button>Start</button>
         </Link>
     </div> 
     

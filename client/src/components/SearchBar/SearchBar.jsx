@@ -20,7 +20,7 @@ const SearchBar = () => {
 
     return (
         <div>
-            <input type= 'text' placeholder= "Search in countries.." onChange= {onHandleChange}/>
+            <input type= 'search' name='search' placeholder= "Search in countries.." onChange= {onHandleChange}/>
             <button type= 'submit' onClick= {onHandleSubmit}>Search</button>
         </div>
     )
