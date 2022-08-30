@@ -1,0 +1,117 @@
+   
+.container {
+  position: absolute; 
+  width: 100vw;
+  height: 140vh;
+  background-image: url('../../Images/mapa1.jpg');
+  background-size: cover;
+  background-position: center;
+  }
+
+.title{ 
+    font-size: large;
+    color: white;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items:flex-start;
+    position: relative;
+    margin-right: 100px;
+    
+    text-shadow: rgb(114, 138, 114) 0 -3px;
+  }
+
+.btns {
+  display: flex;
+  gap: 200px;
+  align-items:flex-start;
+  justify-content:flex-start;
+  margin-top: -70px;
+  margin-left: 270px;
+
+}
+
+.btn {
+    position: relative;
+    align-items:flex-start;
+    font-size: 17px;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 20px;
+    transition: all .2s;
+    font-family: Poppins;
+    font-weight: 500;
+    color: #f8ecea;
+    background-color: #07afff;
+    border: 2px solid whitesmoke;
+    cursor: pointer;
+  
+   }
+   
+   .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+   }
+ 
+   .page{
+    display: flex;
+    width: 100%;
+   
+   } 
+
+  .cards {
+  margin-left: 14px;
+  display: grid;
+  grid-template-columns: 260px 260px 260px 260px 260px;
+  margin-top: 50px;
+  gap: 8px;
+  }
+
+ 
+  .sel{
+    position: relative;
+    align-items:flex-start;
+    font-size: 17px;
+    padding: 8px;
+    display: inline-block;
+    border-radius: 8px;
+    min-height: 20px;
+    margin-top: 8px;
+    font-family: Poppins;
+    font-weight: 500;
+    outline: none;
+    color: #f8ecea;
+    background-color: #07afff;
+    border: 2px solid whitesmoke;  
+  }
+
+  .opc {
+    background-color: white;
+    font-family: Poppins;
+    font-size: 16px;
+    color: #7c7578;
+    font-weight: 500;
+  }
+  
+  .filtSort{
+    display: flex;
+    gap: 200px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .filt{
+    display: flex;
+    gap: 40px;
+    color:#07afff;
+    font-size: 22px;
+    font-family: Poppins;
+    font-weight: 600;
+    width: 400px;
+    align-items: center;
+    justify-content: center;
+    
+  }
+

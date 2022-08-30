@@ -1,0 +1,89 @@
+.container{
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+      position: absolute;
+      background-image: url('../../Images/mapdetalle.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+  }
+
+  .btnGoBack{
+    cursor: pointer;
+    font-family: Poppins;
+    font-size: 16px ;   
+    transition: all 0.5s;
+    padding: 5px 20px;
+    border-radius: 8px;
+    background: #07afff;
+    color: white;
+    border:  solid 2px whitesmoke;
+    margin-top: 25px;
+    width: 130px;
+    margin-left: 20px ;
+  }
+  
+  .btnGoBack:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .area {
+    display: flex;    
+    flex-direction: column;
+    justify-content: center;   
+    background: rgba(255, 255, 255, 0.39);
+    color:#0f2656;
+    font-size: 16px;
+    font-family: Poppins;
+    font-weight: 200;
+    line-height: 16px;    
+    width: 700px;
+    height: 510px;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px; 
+    margin-right: 400px;
+    margin-left: 300px;
+    }
+
+    .image {   
+    display:flex; 
+    margin-top: 70px;
+    margin-left: 20px;
+    width: 180px;
+    height: 167px;
+    left: 45px;
+    top: 278px;
+    border-radius: 6px;
+    object-fit: cover;
+    }
+
+    .country {
+    margin-left: 10px;
+
+    flex-direction: row;
+    
+    
+    left: 900px;
+    top: 900px; 
+    font-weight: 600;
+   
+   
+    color: #16254c;
+    }
+
+    .punto {
+      list-style-type:none;
+    }
+  
+    .dit {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 25px;
+      margin-left: 20px;
+      
+    }    

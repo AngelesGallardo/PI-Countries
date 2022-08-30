@@ -1,0 +1,36 @@
+.pageContainer {
+    margin-top: 40px;
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+   
+}
+.subContainer {
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
+.btnPage{   
+    
+    margin: 2px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.42);
+    border: solid 2px transparent;   
+    color: #0095c8;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 0.5em 0.7em;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    box-shadow: 0.5px 11px 9px rgba(0, 0, 0, 0.6);
+}
+.btnPage:hover{
+   /* background-color:rgb(120, 184, 229) ;    */
+background: rgba(81, 78, 78, 0.11);
+
+}
+

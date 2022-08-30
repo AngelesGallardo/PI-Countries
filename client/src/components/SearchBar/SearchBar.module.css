@@ -1,0 +1,49 @@
+
+.group {
+    display: flex;
+    gap:6px;
+    align-items: center;
+    justify-content: center;
+    width: 2200px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+
+  }
+  
+  .input {
+    font-size: 16px;
+    background-color: white;
+    width: 350px;
+    height: 50%;
+    padding-inline: 0.5em;
+    padding-block: 0.5em;
+    border: solid 2px #07afff;
+    border-radius: 8px;
+    outline: none;
+
+  }
+  
+  .input::placeholder {
+    color: #777;
+    font-family: Poppins;
+    font-size: 16px;
+  }
+  
+  .btn{
+    cursor: pointer;
+    font-family: Poppins;
+    font-size: 16px ;   
+    transition: all 1s;
+    padding: 5px 20px;
+    border-radius: 8px;
+    background: #07afff;
+    color: white;
+    border:  solid 2px whitesmoke;
+  }
+  
+  .btn:hover {
+    background-color: #80b9e4;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  

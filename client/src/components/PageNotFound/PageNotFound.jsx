@@ -1,12 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import nf from './PageNotFound.module.css'
 
 const PageNotFound = ()=> {
 
     return (
-        <div>
-            <h1>Page Not Found</h1>
-            <h3>{'<<'} Oops! You got lost?.. Go back to the main page {'>>'}</h3><Link to='/home'><button>Go back</button></Link>            
+        <div className={nf.container}>
+            <h1 className={nf.letterA}>Page Not Found</h1>
+            
+            <h3 className={nf.letterB}>{'<<'} OOPS! You got lost?.. Go back to the main page {'>>'}</h3>
+            <Link to='/home'><button className={nf.btnGoBack}>{'<'} Go back</button></Link> 
+                       
         </div>
 
     )

@@ -6,6 +6,7 @@ import Card from '../Card/Card.jsx';
 import { Link } from 'react-router-dom';
 import Paginated from '../Paginated/Paginated.jsx'
 import SearchBar from '../SearchBar/SearchBar';
+import h from './Home.module.css'
 
 function Home() {
 
@@ -25,6 +26,24 @@ function Home() {
       currentPage === 1? setCountriesPerPage(9) : setCountriesPerPage(10)
       setCurrentPage(currentPage)    
     }
+    const handlePrevPage=(e)=>{
+      e.preventDefault()
+      if(currentPage === 2){
+         setCurrentPage(currentPage-1)
+         setCountriesPerPage(9)
+      }else if(currentPage > 2) {
+         setCurrentPage(currentPage-1)
+         setCountriesPerPage(10)
+      }      
+   }
+
+   const handleNextPage=(e)=>{
+         e.preventDefault()
+         if(currentPage < Math.ceil(allCountries.length/10)){
+            setCurrentPage(currentPage+1)
+            setCountriesPerPage(10)            
+         }
+   }
       
 
     useEffect(()=>{
@@ -72,54 +91,63 @@ function Home() {
    }
   
   return (
-      <div>
-         <h1>COUNTRIES APP</h1>
+   
+      <div className={h.container}>
+         <div className={h.cover}>
 
          <SearchBar/>
 
-         <Link to='/activities'><button>Activity Create</button></Link>
+         <div className={h.btns}>
+            
+         <Link to='/activities'><button className={h.btn}>Create Activity</button></Link>
+         <button className={h.btn} onClick={onHandleClick}>All Countries</button>
 
-         <button onClick={onHandleClick}>All Countries</button>
+         </div>
          
-         <div>  
-            <fieldset>                 
+         
+         <div className={h.filtSort}> 
+          
+            <fieldset className={h.filt}>                 
             <legend>Filters</legend>        
-            <select onChange = {handleFilterByContinents}>
-               <option hidden selected>By Continents</option>
-               <option value= 'North America'>North America</option>
-               <option value= 'South America'>South America</option>
-               <option value= 'Antarctica'>Antarctica</option>
-               <option value= 'Europe'>Europe</option>
-               <option value= 'Asia'>Asia</option>
-               <option value= 'Africa'>Africa</option>
-               <option value= 'Oceania'>Oceania</option>
+            
+            <select className={h.sel} onChange = {handleFilterByContinents}>
+               <option hidden >By Continents</option>
+               <option className={h.opc} value= 'North America'>North America</option>
+               <option className={h.opc} value= 'South America'>South America</option>
+               <option className={h.opc} value= 'Antarctica'>Antarctica</option>
+               <option className={h.opc} value= 'Europe'>Europe</option>
+               <option  className={h.opc}value= 'Asia'>Asia</option>
+               <option className={h.opc} value= 'Africa'>Africa</option>
+               <option className={h.opc} value= 'Oceania'>Oceania</option>
             </select>            
-            <select onChange = {handleFilterByActivities}> 
-            <option hidden selected>By Activities</option> 
-            <option value='all'>All</option>             
+            
+            <select className={h.sel} onChange = {handleFilterByActivities}> 
+            <option hidden >By Activities</option> 
+            <option className={h.opc} value='all'>All</option>             
                {allActivities && allActivities.map((c) => {
-                     return <option key={c.id} value={c.name}>{c.name}</option>
+                     return <option  className={h.opc} key={c.id} value={c.name}>{c.name}</option>
                 })}
             </select>
             </fieldset>
 
-            <fieldset>
+            <fieldset className={h.filt}>
                <legend>Sorts</legend>
-            <select onChange={handleOrderByName}>
-               <option hidden selected>Alphabetically</option>
-               <option value= 'a-z'>A-Z</option>
-               <option value= 'z-a'>Z-A</option>
+            <select className={h.sel} onChange={handleOrderByName}>
+               <option hidden >Alphabetically</option>
+               <option className={h.opc} value= 'a-z'>A-Z</option>
+               <option className={h.opc} value= 'z-a'>Z-A</option>
             </select>            
-            <select onChange={handleOrderByPopulation}>
-               <option hidden selected>By Population</option>
-               <option value= 'asc'>Ascending</option> 
-               <option value= 'desc'>Descending</option>
+            
+            <select className={h.sel} onChange={handleOrderByPopulation}>
+               <option hidden >By Population</option>
+               <option className={h.opc} value= 'asc'>Ascending</option> 
+               <option className={h.opc} value= 'desc'>Descending</option>
             </select>
            
             </fieldset>
          </div>
 
-
+         <div className={h.cards}>
          {currentCountry?.map(c =>{
             return(                             
                   <Card
@@ -131,16 +159,103 @@ function Home() {
                   population={c.population}
                   />                
             )})}
-
+         </div>
+         
+         
+         <div className={h.page}>
          <Paginated
             countriesPerPage={countriesPerPage}
             allCountries={allCountries.length}
             paginated={paginated}
             setCurrentPage={setCurrentPage}
+            handleNextPage={handleNextPage}
+            handlePrevPage={handlePrevPage}
          />
+         </div>
+         </div>
       </div>
     )
    }
 
 
 export default Home;
+
+
+//       <div className={h.container}>
+//          <h1 className={h.title}>COUNTRIES APP</h1>
+
+//          <button className={h.btn} onClick={onHandleClick}>All Countries</button>
+
+//          <Link to='/activities'><button className={h.btn}>Create Activity</button></Link>
+         
+//          <SearchBar/>
+         
+//          <div>  
+//             <fieldset>                 
+//             <legend>Filters</legend>        
+//             <select className={h.sel} onChange = {handleFilterByContinents}>
+//                <option hidden >By Continents</option>
+//                <option value= 'North America'>North America</option>
+//                <option value= 'South America'>South America</option>
+//                <option value= 'Antarctica'>Antarctica</option>
+//                <option value= 'Europe'>Europe</option>
+//                <option value= 'Asia'>Asia</option>
+//                <option value= 'Africa'>Africa</option>
+//                <option value= 'Oceania'>Oceania</option>
+//             </select>            
+//             <select onChange = {handleFilterByActivities}> 
+//             <option hidden >By Activities</option> 
+//             <option value='all'>All</option>             
+//                {allActivities && allActivities.map((c) => {
+//                      return <option key={c.id} value={c.name}>{c.name}</option>
+//                 })}
+//             </select>
+//             </fieldset>
+
+//             <fieldset>
+//                <legend>Sorts</legend>
+//             <select onChange={handleOrderByName}>
+//                <option hidden >Alphabetically</option>
+//                <option value= 'a-z'>A-Z</option>
+//                <option value= 'z-a'>Z-A</option>
+//             </select>            
+//             <select onChange={handleOrderByPopulation}>
+//                <option hidden >By Population</option>
+//                <option value= 'asc'>Ascending</option> 
+//                <option value= 'desc'>Descending</option>
+//             </select>
+           
+//             </fieldset>
+//          </div>
+
+//          <div className={h.cards}>
+//          {currentCountry?.map(c =>{
+//             return(                             
+//                   <Card
+//                   key={c.id}
+//                   id= {c.id}
+//                   image={c.image}
+//                   name={c.name}
+//                   continents={c.continents}
+//                   population={c.population}
+//                   />                
+//             )})}
+//          </div>
+         
+//          <div className={h.page}>
+//          <Paginated
+//             countriesPerPage={countriesPerPage}
+//             allCountries={allCountries.length}
+//             paginated={paginated}
+//             setCurrentPage={setCurrentPage}
+//             handleNextPage={handleNextPage}
+//             handlePrevPage={handlePrevPage}
+//          />
+//          </div>
+
+//       </div>
+//     )
+//    }
+
+
+// export default Home;

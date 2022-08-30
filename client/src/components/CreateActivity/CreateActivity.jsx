@@ -3,14 +3,13 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from "react-router-dom";
 import { postActivity, getActivities, getAllCountries } from "../../redux/actions";
-
+import a from './CreateActivity.module.css'
 
 const validate = (input) => {
     let errors = {};
     if(!input.name) errors.name = 'Name is required'
     if(input.name.length < 3 || input.name.length > 25) errors.name = 'Name must contain between 3 and 50 characters'
     if(!/^[a-zA-Z ]*$/.test(input.name)) errors.name = 'Invalid name: must only contain letters'
-    if(input.name !== input.name.toLowerCase()) errors.name = 'Invalid name: Invalid name: must only contain lowercase letters'
     if(!input.difficulty) errors.difficulty = 'Choose a difficulty'
     
     if(!input.duration) errors.duration = 'Duration is required'
@@ -50,7 +49,7 @@ const CreateActivity = () =>{
         e.preventDefault();        
         setInput({
             ...input,
-            [e.target.name] : e.target.value
+            [e.target.name] : e.target.value.toLowerCase().trim()
         })        
         setErrors(validate({
             ...input,
@@ -131,44 +130,61 @@ const CreateActivity = () =>{
     },[dispatch]) 
 
     return (
-        <>
-         <Link to='/home'><button>Go Back</button></Link>
+        <div className={a.container}>
+        <div className={a.btnContainer}>
+         <Link to='/home'><button className={a.btnGoBack}>{'<'} Go Back</button></Link>
+         </div>
         
-        <form onSubmit= {onHandleSubmit}>
-            <fieldset>
-                <legend>Activity Name</legend>
-                <input type='text' autoCapitalize="sentences" name='name' value={input.name} autoFocus onChange={onHandleChange}/>
-            {errors.name && (<p>{errors.name}</p>)}
-            </fieldset>
+        <form className={a.formu} onSubmit= {onHandleSubmit}>
+
+            <div className={a.area}>
+                <div className={a.act}>
+                    <label className={a.dif}><legend>Activity Name</legend></label>
+                        <input className={a.input} type='text' placeholder="Enter the activity name" autoCapitalize="sentences" name='name' value={input.name} autoFocus onChange={onHandleChange}/>
+                </div>
+                <div className={a.errors}>
+                    {errors.name && (<p style={{margin: '10px'}}>{errors.name}</p>)}
+                </div>
            
-            <fieldset> 
-                <legend>Difficulty Level </legend>          
-                <label><input type='radio' id='onedif' name='difficulty' value='1' onChange={onHandleDifficulty}/> 1</label>
-                <label><input type='radio' id='twodif' name='difficulty' value='2' onChange={onHandleDifficulty}/> 2</label>
-                <label><input type='radio' id='threedif' name='difficulty' value='3' onChange={onHandleDifficulty}/> 3</label>
-                <label><input type='radio' id='fourdif' name='difficulty' value='4' onChange={onHandleDifficulty}/> 4</label>
-                <label><input type='radio' id='fivedif' name='difficulty' value='5' onChange={onHandleDifficulty}/> 5</label>
-                {errors.difficulty && (<p>{errors.difficulty}</p>)}
-            </fieldset>
-        
-            <fieldset>
-                <legend>Duration </legend>
-                <label><input type='number' name='duration' min='30' max= '300' step={30} value={input.duration} onChange={onHandleChange}/> minutos</label>
-                {errors.duration && (<p>{errors.duration}</p>)}
-            </fieldset>
+                <div className={a.act}>
+                    <label className={a.dif}><legend>Difficulty Level </legend></label>         
+                    <label className={a.check}><input type='radio' id='onedif' name='difficulty' value='1' onChange={onHandleDifficulty}/> 1</label>
+                    <label className={a.check}><input type='radio' id='twodif' name='difficulty' value='2' onChange={onHandleDifficulty}/> 2</label>
+                    <label className={a.check}><input type='radio' id='threedif' name='difficulty' value='3' onChange={onHandleDifficulty}/> 3</label>
+                    <label className={a.check}><input type='radio' id='fourdif' name='difficulty' value='4' onChange={onHandleDifficulty}/> 4</label>
+                    <label className={a.check}><input type='radio' id='fivedif' name='difficulty' value='5' onChange={onHandleDifficulty}/> 5</label>
+                </div>
+                <div className={a.errors}>
+                    {errors.difficulty && (<p style={{margin: '4px'}}>{errors.difficulty}</p>)}
+                </div>
+               
 
-            <fieldset>
-                <legend>Season </legend>
-                <label><input type='radio' id='onesea'name='Summer' value='Summer' onChange={onHandleSeason}/> Summer</label>
-                <label><input type='radio' id='twosea' name='Autumn' value='Autumn' onChange={onHandleSeason}/> Autumn</label>
-                <label><input type='radio' id='threesea' name='Winter' value='Winter' onChange={onHandleSeason}/> Winter</label>
-                <label><input type='radio' id='foursea' name='Spring' value='Winter' onChange={onHandleSeason}/> Spring</label>
-                {errors.season && (<p>{errors.season}</p>)}
-            </fieldset>
+            <div className={a.act}>
+                <label className={a.dif}><legend>Duration </legend></label>
+                <label><input className={a.inputDos} type='number' name='duration' min='30' max= '300' step={30} value={input.duration} onChange={onHandleChange}/> </label><label className={a.dif}>minutes</label>
+            </div>
+            <div className={a.errors}>
+                {errors.duration && (<p style={{marginBottom: '10px'}}>{errors.duration}</p>)}
+            </div>
+           
+            <div className={a.act}>
+                <label className={a.dif}><legend>Season </legend></label>
 
-            <fieldset>
-            <legend>Countries </legend>
-            <select onChange={onHandleCountries}>
+                <label className={a.check}><input type='radio' id='onesea'name='Summer' value='Summer' onChange={onHandleSeason}/> Summer</label>
+
+                <label className={a.check}><input type='radio' id='twosea' name='Autumn' value='Autumn' onChange={onHandleSeason}/> Autumn</label>
+
+                <label className={a.check}><input type='radio' id='threesea' name='Winter' value='Winter' onChange={onHandleSeason}/> Winter</label>
+
+                <label className={a.check}><input type='radio' id='foursea' name='Spring' value='Winter' onChange={onHandleSeason}/> Spring</label>
+            </div>
+            <div className={a.errors}>
+                {errors.season && (<p style={{margin: '4px'}}>{errors.season}</p>)}
+            </div>
+            
+            <div className={a.act}>
+                <label className={a.dif}><legend>Countries </legend></label>
+                <select className={a.sel} onChange={onHandleCountries}>
                 <option hidden selected>Select countries</option>
                 {countries?.sort((a,b)=>{
                     if(a.name > b.name) return 1;
@@ -176,19 +192,23 @@ const CreateActivity = () =>{
                     return 0;
                 }).map(c => 
                     <option key= {c.id} value= {c.name} >{c.name}</option>)}
-            </select>
-            {errors.countries && (<p>{errors.countries}</p>)}
-            <ul>{input.countries.map(c => 
-                <li key={c}>{c}<button value={c} onClick = {onHandleDelete}>x</button></li>)}
-            </ul>
-            </fieldset>
+                </select>
+            </div>
+            <div className={a.errors}>
+                {errors.countries && (<p style={{marginBottom: '10px'}}>{errors.countries}</p>)}
+            </div>
+
+            <ul className={a.punto}>{input.countries.map(c => 
+                <li className={a.lista} key={c}>{c}<button className={a.btnDelete} value={c} onClick = {onHandleDelete}>x</button></li>)}
+            </ul>            
+            
             
             {!input.name || !input.difficulty || !input.duration || !input.season || input.countries.length === 0 || Object.keys(errors).length ? 
-            (<button disabled type="submit">Create Activity</button>) 
-            : (<button type="submit">Create Activity</button>)}
-                        
+            (<button className={a.btnSend} disabled type="submit">Send</button>) 
+            : (<button className={a.btnSend2} type="submit">Send </button>)}
+             </div>           
         </form>     
-        </>
+        </div>
     )
 
 }
