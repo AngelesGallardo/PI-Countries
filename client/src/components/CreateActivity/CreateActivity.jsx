@@ -169,14 +169,10 @@ const CreateActivity = () =>{
            
             <div className={a.act}>
                 <label className={a.dif}><legend>Season </legend></label>
-
-                <label className={a.check}><input type='radio' id='onesea'name='Summer' value='Summer' onChange={onHandleSeason}/> Summer</label>
-
-                <label className={a.check}><input type='radio' id='twosea' name='Autumn' value='Autumn' onChange={onHandleSeason}/> Autumn</label>
-
-                <label className={a.check}><input type='radio' id='threesea' name='Winter' value='Winter' onChange={onHandleSeason}/> Winter</label>
-
-                <label className={a.check}><input type='radio' id='foursea' name='Spring' value='Winter' onChange={onHandleSeason}/> Spring</label>
+                <label className={a.check}><input type='radio' id='onesea'name='season' value='Summer' onChange={onHandleSeason}/> Summer</label>
+                <label className={a.check}><input type='radio' id='twosea' name='season' value='Autumn' onChange={onHandleSeason}/> Autumn</label>
+                <label className={a.check}><input type='radio' id='threesea' name='season' value='Winter' onChange={onHandleSeason}/> Winter</label>
+                <label className={a.check}><input type='radio' id='foursea' name='season' value='Winter' onChange={onHandleSeason}/> Spring</label>
             </div>
             <div className={a.errors}>
                 {errors.season && (<p style={{margin: '4px'}}>{errors.season}</p>)}

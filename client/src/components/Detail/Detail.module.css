@@ -39,38 +39,39 @@
     font-family: Poppins;
     font-weight: 200;
     line-height: 16px;    
-    width: 700px;
+    width: 500px;
     height: 510px;
     border-radius: 8px;
     padding: 20px;
-    margin-top: 30px; 
+    margin-top: 40px; 
     margin-right: 400px;
-    margin-left: 300px;
+    margin-left: 170px;
     }
 
     .image {   
     display:flex; 
-    margin-top: 70px;
-    margin-left: 20px;
-    width: 180px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 0px;
+    margin-left: 16px;
+    width: 200px;
     height: 167px;
     left: 45px;
-    top: 278px;
+    top: 200px;
     border-radius: 6px;
     object-fit: cover;
     }
 
     .country {
-    margin-left: 10px;
-
-    flex-direction: row;
-    
-    
-    left: 900px;
-    top: 900px; 
-    font-weight: 600;
-   
-   
+    font-family: Poppins;
+    font-size: 20px;
+    margin-left: 100px;
+    display:flex;
+    flex-direction: row-reverse; 
+    align-items: center;
+    justify-content: flex-end;
+    line-height: 36px;
+    font-weight: 600; 
     color: #16254c;
     }
 
@@ -87,3 +88,62 @@
       margin-left: 20px;
       
     }    
+
+    .act{
+      display: flex;    
+      flex-direction: column;
+      justify-content:flex-start; 
+      align-items: flex-start;  
+      background: rgba(255, 255, 255, 0.39);
+      color:#0f2656;
+      font-size: 16px;
+      font-family: Poppins;
+      font-weight: 200;
+      line-height: 16px;    
+      width: 200px;
+      height: 300px;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: -500px;       
+      margin-left: 750px;      
+    }
+
+    .actItem{
+      display: flex;
+      font-size: 16px;
+      font-family: Poppins;
+      line-height: 20px;
+      font-weight:lighter;    
+      gap: 25px;
+      margin-left: -40px;
+
+    }
+
+    .numbers {
+      font-weight: 600;
+      font-size: 16px;
+     
+      color: #FF0000;
+     
+      }
+
+      .actTitle{
+        display: flex;
+        font-size: 16px;
+        font-family: Poppins;
+        line-height: 20px;
+        font-weight:bold;     
+        gap: 25px;
+        margin-left: -40px;
+      }
+
+    .actNo {
+      display: flex;
+      font-size: 16px;
+      font-family: Poppins;
+      line-height: 20px;
+      font-weight:lighter;     
+      gap: 25px;
+      margin-left: 20px; 
+    }
+  

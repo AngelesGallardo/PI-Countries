@@ -17,7 +17,7 @@ const initialState = {
                 countries: action.payload,
                 allCountries: action.payload
             }       
-        case GET_COUNTRIES_BY_NAME:
+        case GET_COUNTRIES_BY_NAME:            
             return {
                 ...state,
                  countries: action.payload
