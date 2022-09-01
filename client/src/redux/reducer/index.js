@@ -31,8 +31,7 @@ const initialState = {
             return {
                 ...state,
                 detail: action.payload
-            } 
-        
+            }         
         case CREATE_ACTIVITY:
             return {
                 ...state,

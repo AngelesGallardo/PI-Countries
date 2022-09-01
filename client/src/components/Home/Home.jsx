@@ -6,7 +6,8 @@ import Card from '../Card/Card.jsx';
 import { Link } from 'react-router-dom';
 import Paginated from '../Paginated/Paginated.jsx'
 import SearchBar from '../SearchBar/SearchBar';
-import h from './Home.module.css'
+import h from './Home.module.css';
+import Loader from '../Loader/Loader.jsx';
 
 function Home() {
 
@@ -148,7 +149,7 @@ function Home() {
          </div>
 
          <div className={h.cards}>
-         {currentCountry?.map(c =>{
+         {currentCountry? currentCountry.map(c =>{
             return(                             
                   <Card
                   key={c.id}
@@ -158,7 +159,7 @@ function Home() {
                   continents={c.continents}
                   population={c.population}
                   />                
-            )})}
+            )}) : <Loader/>}
          </div>
          
          
@@ -179,83 +180,3 @@ function Home() {
 
 
 export default Home;
-
-
-//       <div className={h.container}>
-//          <h1 className={h.title}>COUNTRIES APP</h1>
-
-//          <button className={h.btn} onClick={onHandleClick}>All Countries</button>
-
-//          <Link to='/activities'><button className={h.btn}>Create Activity</button></Link>
-         
-//          <SearchBar/>
-         
-//          <div>  
-//             <fieldset>                 
-//             <legend>Filters</legend>        
-//             <select className={h.sel} onChange = {handleFilterByContinents}>
-//                <option hidden >By Continents</option>
-//                <option value= 'North America'>North America</option>
-//                <option value= 'South America'>South America</option>
-//                <option value= 'Antarctica'>Antarctica</option>
-//                <option value= 'Europe'>Europe</option>
-//                <option value= 'Asia'>Asia</option>
-//                <option value= 'Africa'>Africa</option>
-//                <option value= 'Oceania'>Oceania</option>
-//             </select>            
-//             <select onChange = {handleFilterByActivities}> 
-//             <option hidden >By Activities</option> 
-//             <option value='all'>All</option>             
-//                {allActivities && allActivities.map((c) => {
-//                      return <option key={c.id} value={c.name}>{c.name}</option>
-//                 })}
-//             </select>
-//             </fieldset>
-
-//             <fieldset>
-//                <legend>Sorts</legend>
-//             <select onChange={handleOrderByName}>
-//                <option hidden >Alphabetically</option>
-//                <option value= 'a-z'>A-Z</option>
-//                <option value= 'z-a'>Z-A</option>
-//             </select>            
-//             <select onChange={handleOrderByPopulation}>
-//                <option hidden >By Population</option>
-//                <option value= 'asc'>Ascending</option> 
-//                <option value= 'desc'>Descending</option>
-//             </select>
-           
-//             </fieldset>
-//          </div>
-
-//          <div className={h.cards}>
-//          {currentCountry?.map(c =>{
-//             return(                             
-//                   <Card
-//                   key={c.id}
-//                   id= {c.id}
-//                   image={c.image}
-//                   name={c.name}
-//                   continents={c.continents}
-//                   population={c.population}
-//                   />                
-//             )})}
-//          </div>
-         
-//          <div className={h.page}>
-//          <Paginated
-//             countriesPerPage={countriesPerPage}
-//             allCountries={allCountries.length}
-//             paginated={paginated}
-//             setCurrentPage={setCurrentPage}
-//             handleNextPage={handleNextPage}
-//             handlePrevPage={handlePrevPage}
-//          />
-//          </div>
-
-//       </div>
-//     )
-//    }
-
-
-// export default Home;

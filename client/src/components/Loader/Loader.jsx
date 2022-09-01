@@ -4,11 +4,9 @@ import l from './Loader.module.css';
 
 function Loader() {
   return (
-    <div className={l.spinner}>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+    <span className={l.loader}>
+    
+    </span>
   )
 }
 

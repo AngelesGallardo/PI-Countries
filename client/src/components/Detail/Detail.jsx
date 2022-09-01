@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDetailById, cleanCountry } from "../../redux/actions";
 import { Link, useParams} from "react-router-dom";
 import d from './Detail.module.css';
+import Loader from "../Loader/Loader";
 
 
 const CountryDetail= (props) => {
@@ -48,10 +49,11 @@ const CountryDetail= (props) => {
                             <li className={d.actItem}>Season: {a.season}</li>
                         </ul>)
                             
-                    ) : <span className={d.actNo}>No related activities</span>}</h4>
+                    ) : <p className={d.actNo}>No related activities</p>}</h4>
                 </div>
 
-            </div>: <p>...Loading</p>}
+            </div>
+            : <Loader/>}
         </div>       
     )
 }

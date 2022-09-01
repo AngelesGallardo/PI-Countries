@@ -8,7 +8,7 @@ import a from './CreateActivity.module.css'
 const validate = (input) => {
     let errors = {};
     if(!input.name) errors.name = 'Name is required'
-    if(input.name.length < 3 || input.name.length > 25) errors.name = 'Name must contain between 3 and 50 characters'
+    if(input.name.length < 3 || input.name.length > 20) errors.name = 'Name must contain between 3 and 20 characters'
     if(!/^[a-zA-Z ]*$/.test(input.name)) errors.name = 'Invalid name: must only contain letters'
     if(!input.difficulty) errors.difficulty = 'Choose a difficulty'
     
