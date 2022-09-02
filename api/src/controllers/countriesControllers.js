@@ -11,7 +11,7 @@ const getAllCountries = async () => {
             name: c.name.common.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
             image: c.flags[1],
             continents: c.continents.toString(),
-            capital: c.capital? c.capital.toString() : 'dato desconocido',
+            capital: c.capital? c.capital.toString() : 'Unknown',
             subregion: c.subregion,
             area: c.area,
             population: c.population,
@@ -77,6 +77,7 @@ const getCountries = async (req, res, next) => {
         next(error)
     }
 }
+
 
 
 
