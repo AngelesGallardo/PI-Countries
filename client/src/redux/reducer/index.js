@@ -79,7 +79,7 @@ const initialState = {
             }
         case FILTER_BY_ACTIVITIES:
             const countries = state.allCountries            
-            const filterByActivities = action.payload === 'all'? countries : countries.filter(c => c.activities?.find(a => (a.name) === (action.payload)))           
+            const filterByActivities = action.payload === 'all'? state.allCountries : countries.filter(c => c.activities?.find(a => (a.name) === (action.payload)))           
             return {
                 ...state,
                  countries: filterByActivities

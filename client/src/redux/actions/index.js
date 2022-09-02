@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 export const GET_ALL_COUNTRIES = 'GET_ALL_COUNTRIES';
 export const GET_COUNTRIES_BY_NAME = 'GET_COUNTRIES_BY_NAME';
 export const GET_DETAIL_BY_ID = 'GET_DETAIL_BY_ID';
@@ -13,8 +12,7 @@ export const GET_ACTIVITIES = 'GET_ACTIVITIES';
 
 
 
-
-export const getAllCountries = () => {
+ export const getAllCountries = () => {
     try {
         return async (dispatch) => {
             const json = await axios('http://localhost:3001/countries');
@@ -57,7 +55,7 @@ export const cleanCountry = () => {
 export const postActivity = (activity) => { 
     return async (dispatch) =>{
         const json = await axios.post('http://localhost:3001/activities', activity)
-        return json.data;
+        return dispatch({type: CREATE_ACTIVITY})
     }   
 }
 

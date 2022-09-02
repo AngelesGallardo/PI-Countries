@@ -38,8 +38,9 @@ const getAllActivities = async (req, res, next) =>{
     }
 }
 
+
 module.exports = {
     newActivity,
-    getAllActivities
+    getAllActivities,
 }
 

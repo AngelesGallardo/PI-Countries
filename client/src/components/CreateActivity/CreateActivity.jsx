@@ -181,7 +181,7 @@ const CreateActivity = () =>{
             <div className={a.act}>
                 <label className={a.dif}><legend>Countries </legend></label>
                 <select className={a.sel} onChange={onHandleCountries}>
-                <option hidden selected>Select countries</option>
+                <option hidden selected >Select countries</option>
                 {countries?.sort((a,b)=>{
                     if(a.name > b.name) return 1;
                     if(a.name < b.name) return -1;

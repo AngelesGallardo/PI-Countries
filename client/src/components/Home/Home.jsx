@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Paginated from '../Paginated/Paginated.jsx'
 import SearchBar from '../SearchBar/SearchBar';
 import h from './Home.module.css';
-import Loader from '../Loader/Loader.jsx';
+
 
 function Home() {
 
@@ -58,7 +58,7 @@ function Home() {
 
    const onHandleClick = (e) =>{
       e.preventDefault();
-      dispatch(getAllCountries())
+      dispatch(getAllCountries())      
    }
 
    const handleFilterByContinents = (e) => {
@@ -112,12 +112,12 @@ function Home() {
             <legend>Filters</legend>        
             
             <select className={h.sel} onChange = {handleFilterByContinents}>
-               <option hidden >By Continents</option>
+               <option hidden>By Continents</option>
                <option className={h.opc} value= 'North America'>North America</option>
                <option className={h.opc} value= 'South America'>South America</option>
                <option className={h.opc} value= 'Antarctica'>Antarctica</option>
                <option className={h.opc} value= 'Europe'>Europe</option>
-               <option  className={h.opc}value= 'Asia'>Asia</option>
+               <option className={h.opc} value= 'Asia'>Asia</option>
                <option className={h.opc} value= 'Africa'>Africa</option>
                <option className={h.opc} value= 'Oceania'>Oceania</option>
             </select>            
@@ -149,7 +149,7 @@ function Home() {
          </div>
 
          <div className={h.cards}>
-         {currentCountry? currentCountry.map(c =>{
+         {currentCountry?.map(c =>{
             return(                             
                   <Card
                   key={c.id}
@@ -159,7 +159,7 @@ function Home() {
                   continents={c.continents}
                   population={c.population}
                   />                
-            )}) : <Loader/>}
+            )})}
          </div>
          
          

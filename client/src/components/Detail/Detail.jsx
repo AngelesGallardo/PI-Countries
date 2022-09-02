@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDetailById, cleanCountry } from "../../redux/actions";
 import { Link, useParams} from "react-router-dom";
 import d from './Detail.module.css';
-import Loader from "../Loader/Loader";
+
 
 
 const CountryDetail= (props) => {
@@ -41,19 +41,17 @@ const CountryDetail= (props) => {
                 </div>
                    
                 <div className={d.act}>
-                    <h4 >Activities: {detail[0].activities.length>0? detail[0].activities.map(a=>(
-                        <ul className={d.punto} key={a.id}>
+                    <h4>Activities: {detail[0].activities.length>0? detail[0].activities.map(a=>(
+                        <ul className={d.punto} >                            
                             <li className={d.actTitle} key={a.name}>{a.name}</li>
                             <li className={d.actItem} key={a.difficulty}>Difficulty Level:<span className={d.numbers}> {a.difficulty} </span></li>
-                            <li className={d.actItem}>Duration:<span className={d.numbers}> {a.duration}</span>minutes</li>
-                            <li className={d.actItem}>Season: {a.season}</li>
-                        </ul>)
-                            
-                    ) : <p className={d.actNo}>No related activities</p>}</h4>
+                            <li className={d.actItem} key={a.duracion}>Duration:<span className={d.numbers}> {a.duration}</span>minutes</li>
+                            <li className={d.actItem} key={a.season}>Season: {a.season}</li>
+                        </ul>))                            
+                     : <p className={d.actNo}>No related activities</p>}</h4>
                 </div>
-
             </div>
-            : <Loader/>}
+            : <p>Loading</p>}
         </div>       
     )
 }
