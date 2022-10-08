@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { getCountriesByName } from "../../redux/actions";
 import s from './SearchBar.module.css'
-const SearchBar = () => {
+const SearchBar = ({setCurrentPage}) => {
 
     
     const dispatch = useDispatch()
@@ -17,7 +17,8 @@ const SearchBar = () => {
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
-        dispatch(getCountriesByName(name))        
+        dispatch(getCountriesByName(name)) 
+        setCurrentPage(1)               
     }
 
     return (

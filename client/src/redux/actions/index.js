@@ -9,6 +9,7 @@ export const ORDER_BY_NAME = 'ORDER_BY_NAME';
 export const ORDER_BY_POPULATION = 'ORDER_BY_POPULATION';
 export const CREATE_ACTIVITY = 'CREATE_ACTIVITY';
 export const GET_ACTIVITIES = 'GET_ACTIVITIES';
+//export const FIVE_COUNTRIES = 'FIVE_COUNTRIES';
 
 
 
@@ -69,6 +70,11 @@ export const getActivities = () => {
         console.log(error)
     }  
 }
+
+// CODEADO EN VIVO
+// export const filterByFive = (payload)=>{
+//     return({type: FIVE_COUNTRIES, payload})
+// }
 
 export const filterByContinents = (payload) => {
     return({type: FILTER_BY_CONTINENTS, payload})

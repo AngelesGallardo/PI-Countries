@@ -1,4 +1,4 @@
-import { GET_ALL_COUNTRIES, GET_ACTIVITIES, GET_DETAIL_BY_ID, CREATE_ACTIVITY,FILTER_BY_CONTINENTS, FILTER_BY_ACTIVITIES, ORDER_BY_NAME, ORDER_BY_POPULATION, GET_COUNTRIES_BY_NAME, CLEAN_COUNTRY } from '../actions/index.js'
+import { GET_ALL_COUNTRIES, GET_ACTIVITIES, GET_DETAIL_BY_ID, CREATE_ACTIVITY,FILTER_BY_CONTINENTS, FILTER_BY_ACTIVITIES, ORDER_BY_NAME, ORDER_BY_POPULATION, GET_COUNTRIES_BY_NAME, CLEAN_COUNTRY, FIVE_COUNTRIES } from '../actions/index.js'
 
 const initialState = {
     countries: [],
@@ -77,6 +77,18 @@ const initialState = {
                 ...state,
                 countries: filterByContinents
             }
+        // CODEADO EN VIVO    
+        // case FIVE_COUNTRIES:
+        //     const countriesAll= state.allCountries
+        //     let filterFive = countriesAll.filter(c => c.continents === action.payload)
+        //     filterFive = filterFive.sort((a,b)=>{
+        //     return b.population - a.population;})
+        //     let onlyFive = filterFive.slice(0,5)
+
+        //     return {
+        //         ...state,
+        //         countries: onlyFive
+        //     }
         case FILTER_BY_ACTIVITIES:
             const countries = state.allCountries            
             const filterByActivities = action.payload === 'all'? state.allCountries : countries.filter(c => c.activities?.find(a => (a.name) === (action.payload)))           

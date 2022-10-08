@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterByActivities, filterByContinents, getActivities, getAllCountries, orderByName, orderByPopulation } from '../../redux/actions/index.js';
+import { filterByActivities, filterByContinents, filterByFive, getActivities, getAllCountries, orderByName, orderByPopulation } from '../../redux/actions/index.js';
 import Card from '../Card/Card.jsx';
 import { Link } from 'react-router-dom';
 import Paginated from '../Paginated/Paginated.jsx'
@@ -60,6 +60,14 @@ function Home() {
       e.preventDefault();
       dispatch(getAllCountries())      
    }
+   
+   // CODEADO EN VIVO
+   // const onHandleFive = (e)=>{
+   //    e.preventDefault()
+   //    dispatch(filterByFive('Europe'))
+   //    setCurrentPage(1)
+   //    setCountriesPerPage(9)
+   // }
 
    const handleFilterByContinents = (e) => {
       e.preventDefault();
@@ -96,7 +104,11 @@ function Home() {
       <div className={h.container}>
          <div className={h.cover}>
 
-         <SearchBar/>
+         <SearchBar
+         setCurrentPage={setCurrentPage}
+         />
+
+         {/* <button onClick={onHandleFive}>New Countries</button> CODEADO EN VIVO */}
 
          <div className={h.btns}>
             
