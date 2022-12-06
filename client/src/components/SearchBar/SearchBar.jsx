@@ -18,13 +18,14 @@ const SearchBar = ({setCurrentPage}) => {
     const onHandleSubmit = (e) => {
         e.preventDefault();
         dispatch(getCountriesByName(name)) 
-        setCurrentPage(1)               
+        setCurrentPage(1)   
+        setName('')          
     }
 
     return (
 
         <div className={s.group}>
-            <input className={s.input} type= 'search' name='search' placeholder= "Search countries by name" onChange= {onHandleChange}/>
+            <input className={s.input} type= 'search' value={name} placeholder= "Search countries by name" onChange= {onHandleChange}/>
             
             <button className={s.btn} type= 'submit' onClick= {onHandleSubmit}>Search</button>
         </div>

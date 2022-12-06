@@ -196,7 +196,7 @@ const CreateActivity = () =>{
             </div>
 
             <ul className={a.punto}>{input.countries.map(c => 
-                <li className={a.lista} key={c}>{c}<button className={a.btnDelete} value={c} onClick = {onHandleDelete}>x</button></li>)}
+                <li className={a.lista} key={c}>{c}<button value={c} onClick = {onHandleDelete}>x</button></li>)}
             </ul>            
             
             

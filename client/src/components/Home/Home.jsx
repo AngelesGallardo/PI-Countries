@@ -58,7 +58,11 @@ function Home() {
 
    const onHandleClick = (e) =>{
       e.preventDefault();
-      dispatch(getAllCountries())      
+      dispatch(getAllCountries())   
+      document.getElementById('continent').value = 'defaultValue'
+      document.getElementById('activities').value = 'defaultValue' 
+      document.getElementById('byName').value = 'defaultValue' 
+      document.getElementById('byPopulation').value = 'defaultValue'    
    }
    
    // CODEADO EN VIVO
@@ -123,8 +127,8 @@ function Home() {
             <fieldset className={h.filt}>                 
             <legend>Filters</legend>        
             
-            <select className={h.sel} onChange = {handleFilterByContinents}>
-               <option hidden>By Continents</option>
+            <select className={h.sel} id='continent' onChange = {handleFilterByContinents}>
+               <option hidden value='defaultValue'>By Continents</option>
                <option className={h.opc} value= 'North America'>North America</option>
                <option className={h.opc} value= 'South America'>South America</option>
                <option className={h.opc} value= 'Antarctica'>Antarctica</option>
@@ -134,8 +138,8 @@ function Home() {
                <option className={h.opc} value= 'Oceania'>Oceania</option>
             </select>            
             
-            <select className={h.sel} onChange = {handleFilterByActivities}> 
-            <option hidden >By Activities</option> 
+            <select className={h.sel} id='activities' onChange = {handleFilterByActivities}> 
+            <option hidden value='defaultValue'>By Activities</option> 
             <option className={h.opc} value='all'>All</option>             
                {allActivities && allActivities.map((c) => {
                      return <option  className={h.opc} key={c.id} value={c.name}>{c.name}</option>
@@ -145,14 +149,14 @@ function Home() {
 
             <fieldset className={h.filt}>
                <legend>Sorts</legend>
-            <select className={h.sel} onChange={handleOrderByName}>
-               <option hidden >Alphabetically</option>
+            <select className={h.sel} id='byName' onChange={handleOrderByName}>
+               <option hidden value='defaultValue'>Alphabetically</option>
                <option className={h.opc} value= 'a-z'>A-Z</option>
                <option className={h.opc} value= 'z-a'>Z-A</option>
             </select>            
             
-            <select className={h.sel} onChange={handleOrderByPopulation}>
-               <option hidden >By Population</option>
+            <select className={h.sel} id='byPopulation' onChange={handleOrderByPopulation}>
+               <option hidden value='defaultValue'>By Population</option>
                <option className={h.opc} value= 'asc'>Ascending</option> 
                <option className={h.opc} value= 'desc'>Descending</option>
             </select>
